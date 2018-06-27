@@ -1,0 +1,19 @@
+{
+  "name": "zipkin-instrumentation-egg",
+  "version": "1.0.0",
+  "description": "zipkin instrumentation for egg as a plugin",
+  "devDependencies": {
+    "zipkin": "^0.13.0",
+    "zipkin-transport-http": "^0.13.0"
+  },
+  "eggPlugin": {
+    "name": "zipkinInstrumentationEgg"
+  },
+  "keywords": [
+    "egg",
+    "egg-plugin",
+    "eggPlugin",
+    "zipkin",
+    "instrumentation"
+  ]
+}
