@@ -1,6 +1,6 @@
 {
   "name": "egg-zipkin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "zipkin instrumentation for egg as a plugin",
   "devDependencies": {
     "zipkin": "^0.13.0",
@@ -15,5 +15,15 @@
     "eggPlugin",
     "zipkin",
     "instrumentation"
-  ]
+  ],
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanDart1001/zipkin-instrumentation-egg"
+  },
+  "author": "IvanDart1001@outlook.com",
+  "license": "MIT",
+  "homepage": "https://github.com/IvanDart1001/zipkin-instrumentation-egg"
 }
