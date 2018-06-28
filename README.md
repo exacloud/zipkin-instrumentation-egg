@@ -7,9 +7,9 @@ Happy to recieve suggestions and comments.
 $ npm i egg-zipkin --save
 ``````
 
-##How to Use
+## How to Use
 
-###zipkin-instrumentation-egg
+### zipkin-instrumentation-egg
 zipkin instrumentation for egg as a plugin.
 
 install this to an egg server,use this globally or in router(recommend):
