@@ -60,7 +60,11 @@ Set consoleRecorder to false or just do nothing with it, and then use docker, vi
 $ docker run -d -p 9411:9411 openzipkin/zipkin
 ```
 
-p.s.I'll try to figure out how to use this as a globaly.
+p.s.
+
+Maybe modifying routers in this way is a little bit inconvenient.Hmmm...Sorry for that.
+
+I'll try to figure out how to make this be able to be used globaly.😅
 
 ## License
 
