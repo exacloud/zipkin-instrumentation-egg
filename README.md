@@ -29,7 +29,7 @@ zipkin instrumentation for egg as a plugin.
 Install this to an egg server,use this in your router:
 ```js
 // {app_root}/config/plugin.js
-exports.zipkin = {
+exports.zipkinInstrumentationEgg = {
   enable: true,
   package: 'egg-zipkin',
 };
@@ -53,7 +53,7 @@ const zipkinMW_Sample_Service = app.middleware.zipkinMW({
 // or 
 // app.middleware.zipkinMW({targetApi: '/your/custom/api'})
 //
-app.router.get('/', zipkinMW_Sample_Service, app.controller.handler);
+app.router.get('/', zipkinMW_Sample_Service(), app.controller.handler);
 ```
 Set consoleRecorder to false or just do nothing with it, and then use docker, visit localhost:9411 (or your target listener api: `${httpsOn ? 'https://' : 'http://''}${targetServer}${targetApi}`) to see what happens
 ```bash
