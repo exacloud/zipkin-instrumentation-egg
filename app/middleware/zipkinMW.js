@@ -1,13 +1,13 @@
 'use strict';
-// const {Tracer, ExplicitContext, ConsoleRecorder} = require('zipkin');
-// const recorder = new ConsoleRecorder();
+const {Tracer, ExplicitContext, ConsoleRecorder} = require('zipkin');
+const recorderConsole = new ConsoleRecorder();
 
-const {Tracer, ExplicitContext} = require('zipkin');
+// const {Tracer, ExplicitContext} = require('zipkin');
 const {recorder} = require('../../lib/recorder');
 
-const ctxImpl = new ExplicitContext();
+const {defaultValue} = require('../../config/config.default');
 
-const tracer = new Tracer({ctxImpl, recorder});
+const ctxImpl = new ExplicitContext();
 
 const {
   Annotation,
@@ -44,8 +44,28 @@ function formatRequestUrl(req) {
   });
 }
 
+let tracer;
+
+async function generateTracer(options){
+    let protocalHeader = 'http://';
+    if(options && options.httpsOn){
+        protocalHeader = 'https://';
+    }
+    if(options && options.consoleRecorder){
+        tracer = new Tracer({ctxImpl: ctxImpl, recorder: recorderConsole})
+    } else {
+        const baseRecorder = await recorder({
+            targetServer: (options && options.targetServer) ? protocalHeader + options.targetServer : protocalHeader + defaultValue.targetServer,
+            targetApi: (options && options.targetApi) ? options.targetApi : defaultValue.targetApi,
+            jsonEncoder: (options && options.jsonEncoder) ? options.jsonEncoder : defaultValue.jsonEncoder
+        });
+        tracer = new Tracer({ctxImpl: ctxImpl, recorder: baseRecorder});
+    }
+}
+
 module.exports = (options) => {
-  return async function EggMiddleware(ctx, next, port = 0) {
+    return async function EggMiddleware(ctx, next, port = 0) {
+        await generateTracer(options);
     ctx.req.get = ctx.req.header = (name)=> {
       if (!name)
         throw new TypeError('name argument is required to ctx.req.header');
@@ -104,7 +124,7 @@ module.exports = (options) => {
 
       const id = tracer.id;
 
-      tracer.recordServiceName(options.serviceName);
+      tracer.recordServiceName((options && options.serviceName) ? options.serviceName : defaultValue.serviceName);
       tracer.recordRpc(ctx.req.method.toUpperCase());
       tracer.recordBinary('http.url', formatRequestUrl(ctx.req));
       tracer.recordAnnotation(new Annotation.ServerRecv());

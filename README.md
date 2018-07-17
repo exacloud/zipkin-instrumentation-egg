@@ -8,7 +8,12 @@
 [download-image]: https://img.shields.io/npm/dm/egg-zipkin.svg?style=flat-square
 [download-url]: https://npmjs.org/package/egg-zipkin
 
-Before the official team publish their egg-zipkin plugin, try this one! 😀
+The official team (ali) publish their egg-opentracing-zipkin plugin.Best wishes to them!
+
+Well,this one is still being maintained continuously. 😀
+
+New features in coming! 
+
 Happy to recieve suggestions and comments.
 
 ## Install
@@ -21,7 +26,7 @@ $ npm i egg-zipkin --save
 ### zipkin-instrumentation-egg
 zipkin instrumentation for egg as a plugin.
 
-install this to an egg server,use this globally or in router(recommend):
+Install this to an egg server,use this in your router:
 ```js
 // {app_root}/config/plugin.js
 exports.zipkin = {
@@ -30,10 +35,27 @@ exports.zipkin = {
 };
 
 //{app_root}/app/router.js
-const zipkinMW_Sample_Service = app.middleware.zipkinMW({serviceName: 'sample-service'})
+const zipkinMW_Sample_Service = app.middleware.zipkinMW({
+    serviceName: 'awesome-service',
+    httpsOn: false, // if you set this to true, it will use https protocal to visit your targetServer
+    targetServer: '127.0.0.1:9411',
+    targetApi: '/api/v2/spans',
+    jsonEncoder: 'v2', // you can choose 'v1' or 'v2',
+    consoleRecorder: false // if you set this to true , it will use ConsoleRecorder to print messages on your console.Thus only serviceName will be used.
+}); 
+//
+// these are optional 
+//
+// you can even do like this: 
+// app.middleware.zipkinMW() 
+// or 
+// app.middleware.zipkinMW({}) 
+// or 
+// app.middleware.zipkinMW({targetApi: '/your/custom/api'})
+//
 app.router.get('/', zipkinMW_Sample_Service, app.controller.handler);
 ```
-and use docker, visit localhost:9411 to see what happens
+Set consoleRecorder to false or just do nothing with it, and then use docker, visit localhost:9411 (or your target listener api: `${httpsOn ? 'https://' : 'http://''}${targetServer}${targetApi}`) to see what happens
 ```bash
 $ docker run -d -p 9411:9411 openzipkin/zipkin
 ```
