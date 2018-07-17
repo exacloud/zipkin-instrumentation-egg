@@ -60,6 +60,8 @@ Set consoleRecorder to false or just do nothing with it, and then use docker, vi
 $ docker run -d -p 9411:9411 openzipkin/zipkin
 ```
 
+p.s.I'll try to figure out how to use this as a globaly.
+
 ## License
 
 [MIT](LICENSE)
