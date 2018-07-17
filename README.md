@@ -16,6 +16,11 @@ New features in coming!
 
 Happy to recieve suggestions and comments.
 
+## Dependency
+```bash
+$ npm i zipkin zipkin-transport-http --save
+```
+
 ## Install
 ```bash
 $ npm i egg-zipkin --save
@@ -53,7 +58,7 @@ const zipkinMW_Sample_Service = app.middleware.zipkinMW({
 // or 
 // app.middleware.zipkinMW({targetApi: '/your/custom/api'})
 //
-app.router.get('/', zipkinMW_Sample_Service(), app.controller.handler);
+app.router.get('/', zipkinMW_Sample_Service, app.controller.handler);
 ```
 Set consoleRecorder to false or just do nothing with it, and then use docker, visit localhost:9411 (or your target listener api: `${httpsOn ? 'https://' : 'http://''}${targetServer}${targetApi}`) to see what happens
 ```bash
