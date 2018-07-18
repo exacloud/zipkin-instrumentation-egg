@@ -16,6 +16,8 @@ New features in coming!
 
 Happy to recieve suggestions and comments.
 
+issue page:https://github.com/exacloud/zipkin-instrumentation-egg/issues
+
 ## Dependency
 ```bash
 $ npm i zipkin zipkin-transport-http --save

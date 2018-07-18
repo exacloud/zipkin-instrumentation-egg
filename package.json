@@ -1,6 +1,6 @@
 {
   "name": "egg-zipkin",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "zipkin instrumentation for egg as a plugin",
   "devDependencies": {
     "zipkin": "^0.13.0",
