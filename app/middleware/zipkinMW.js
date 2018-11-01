@@ -47,6 +47,10 @@ function formatRequestUrl(req) {
 let tracer;
 
 async function generateTracer(options){
+    if(options && options.tracer){
+        tracer = options.tracer
+        return
+    }
     let protocalHeader = 'http://';
     if(options && options.httpsOn){
         protocalHeader = 'https://';
