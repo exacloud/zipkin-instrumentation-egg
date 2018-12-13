@@ -18,11 +18,6 @@ Happy to recieve suggestions and comments.
 
 issue page:https://github.com/exacloud/zipkin-instrumentation-egg/issues
 
-## Dependency
-```bash
-$ npm i zipkin zipkin-transport-http --save
-```
-
 ## Install
 ```bash
 $ npm i egg-zipkin --save
@@ -36,31 +31,20 @@ zipkin instrumentation for egg as a plugin.
 Install this to an egg server,use this in your router:
 ```js
 // {app_root}/config/plugin.js
-exports.zipkinInstrumentationEgg = {
+exports.zipkin = {
   enable: true,
   package: 'egg-zipkin',
 };
 
-//{app_root}/app/router.js
-const zipkinMW_Sample_Service = app.middleware.zipkinMW({
+//{app_root}/config/config.xxx.js
+exports.zipkin = {
     serviceName: 'awesome-service',
     httpsOn: false, // if you set this to true, it will use https protocal to visit your targetServer
     targetServer: '127.0.0.1:9411',
     targetApi: '/api/v2/spans',
     jsonEncoder: 'v2', // you can choose 'v1' or 'v2',
     consoleRecorder: false // if you set this to true , it will use ConsoleRecorder to print messages on your console.Thus only serviceName will be used.
-}); 
-//
-// these are optional 
-//
-// you can even do like this: 
-// app.middleware.zipkinMW() 
-// or 
-// app.middleware.zipkinMW({}) 
-// or 
-// app.middleware.zipkinMW({targetApi: '/your/custom/api'})
-//
-app.router.get('/', zipkinMW_Sample_Service, app.controller.handler);
+}; 
 ```
 Set consoleRecorder to false or just do nothing with it, and then use docker, visit localhost:9411 (or your target listener api: `${httpsOn ? 'https://' : 'http://''}${targetServer}${targetApi}`) to see what happens
 ```bash
@@ -69,10 +53,7 @@ $ docker run -d -p 9411:9411 openzipkin/zipkin
 
 p.s.
 
-Maybe modifying routers in this way is a little bit inconvenient.Hmmm...Sorry for that.
-
-I'll try to figure out how to make this be able to be used globaly.😅
-
+In this version, it supports tracing globally! Cheers! (>ω<) 
 ## License
 
 [MIT](LICENSE)
